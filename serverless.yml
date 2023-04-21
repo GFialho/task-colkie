@@ -23,7 +23,7 @@ provider:
     stage: ${self:custom.stage}
     dbHost: "123"
     dbUserName: postgres
-    dbPassword: ${ssm:${self:custom.rdsSecretName}}
+    dbPassword: ${self:custom.postgres.password}
     dbMaxConnections: 100
 
 custom:
@@ -37,7 +37,7 @@ custom:
   postgres:
     dbName: colkie
     username: production
-    password: ${ssm:${self:custom.rdsSecretName}}
+    password: first-password-123 # ${ssm:${self:custom.rdsSecretName}}
     maxConnections:
       production: 100
     dbInstanceClass:
