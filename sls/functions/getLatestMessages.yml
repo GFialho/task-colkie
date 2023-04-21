@@ -1,5 +1,5 @@
 GetLatestMessages:
-  handler: src/functions/api/getLatestMessages.handler
+  handler: src/functions/getLatestMessages.handler
   timeout: 30
   events:
     - http:

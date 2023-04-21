@@ -1,5 +1,5 @@
 SendMessage:
-  handler: src/functions/api/sendMessage.handler
+  handler: src/functions/sendMessage.handler
   timeout: 30
   events:
     - http:

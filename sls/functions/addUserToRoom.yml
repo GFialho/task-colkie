@@ -1,5 +1,5 @@
 AddUserToRoom:
-  handler: src/functions/api/addUserToRoom.handler
+  handler: src/functions/addUserToRoom.handler
   timeout: 30
   events:
     - http:

@@ -1,5 +1,5 @@
 CreateRoom:
-  handler: src/functions/api/createRoom.handler
+  handler: src/functions/createRoom.handler
   timeout: 30
   events:
     - http:
