@@ -62,11 +62,6 @@ functions:
   - ${file(sls/functions/sendMessage.yml)}
 
 resources:
-  # API GATEWAY
-  - ${file(sls/resources/apigateway/restApi.yml)}
-  - ${file(sls/resources/apigateway/deployment.yml)}
-  - ${file(sls/resources/apigateway/reqValidator.yml)}
-  - ${file(sls/resources/apigateway/responses.yml)}
   # RDS
   - ${file(sls/resources/rds/database.yml)}
   - ${file(sls/resources/rds/vpc.yml)}
