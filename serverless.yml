@@ -1,0 +1,77 @@
+service: colkie
+
+plugins:
+  - serverless-iam-roles-per-function
+  - serverless-esbuild
+  - serverless-prune-plugin
+  - "@kakkuk/serverless-aws-apigateway-documentation"
+  - serverless-reqvalidator-plugin
+  - serverless-aws-documentation
+
+package:
+  individually: true
+  exclude:
+    - .serverless/**
+    - .git/**
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  profile: colkie-production
+  stage: ${self:custom.stage}
+  region: eu-west-2
+  environment:
+    stage: ${self:custom.stage}
+    dbHost: "123"
+    dbUserName: postgres
+    dbPassword: ${ssm:${self:custom.rdsSecretName}}
+    dbMaxConnections: 100
+
+custom:
+  esbuild:
+    target: "node16"
+    concurrency: 10
+    bundle: true
+    minify: false
+    external:
+      - "@prisma"
+  postgres:
+    dbName: colkie
+    username: production
+    password: ${ssm:${self:custom.rdsSecretName}}
+    maxConnections:
+      production: 100
+    dbInstanceClass:
+      production: db.t4g.micro
+    allocatedStorage:
+      production: "20"
+    vpcCIDR: 10
+  rdsSecretName: /rds/password
+  rdsHost: rds_host_123
+  stage: ${opt:stage, 'production'}
+  bucketName: ${self:service}-swagger-${self:custom.stage}
+  documentation:
+    info:
+      title: ${self:service}
+    models:
+
+functions:
+  - ${file(sls/functions/addUserToRoom.yml)}
+  - ${file(sls/functions/createRoom.yml)}
+  - ${file(sls/functions/getLatestMessages.yml)}
+  - ${file(sls/functions/sendMessage.yml)}
+
+resources:
+  # API GATEWAY
+  - ${file(sls/resources/apigateway/restApi.yml)}
+  - ${file(sls/resources/apigateway/deployment.yml)}
+  - ${file(sls/resources/apigateway/reqValidator.yml)}
+  - ${file(sls/resources/apigateway/responses.yml)}
+  # RDS
+  - ${file(sls/resources/rds/database.yml)}
+  - ${file(sls/resources/rds/vpc.yml)}
+  # SECRETS
+  - ${file(sls/resources/secrets/database.yml)}
+  # S3
+  - ${file(sls/resources/s3/bucket.yml)}
+  - ${file(sls/resources/s3/bucketPolicy.yml)}

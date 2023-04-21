@@ -1,0 +1,115 @@
+Resources:
+  # Since RDS is a server, we need to provide a whole architecture behind it!
+  # Database VPC so it can communicate to other services and to keep track of VPCs
+  ColkieRDSVPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: ${self:custom.postgres.vpcCIDR}.0.0.0/16
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      InstanceTenancy: default
+      Tags:
+        - Key: Name
+          Value: RDS VPC with 3 public Subnets
+
+  ColkieInternetGateway:
+    Type: AWS::EC2::InternetGateway
+
+  ColkieAttachGateway:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId:
+        Ref: ColkieRDSVPC
+      InternetGatewayId:
+        Ref: ColkieInternetGateway
+
+  ColkieSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: "Allow http client to connect to our database"
+      VpcId:
+        Ref: ColkieRDSVPC
+      SecurityGroupIngress:
+        - IpProtocol: -1
+          FromPort: 0
+          ToPort: 65535
+          CidrIp: 0.0.0.0/0
+
+  ColkiePublicSubnetA:
+    DependsOn: ColkieRDSVPC
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: ColkieRDSVPC
+      AvailabilityZone: ${self:provider.region}a
+      CidrBlock: ${self:custom.postgres.vpcCIDR}.0.0.0/24
+      MapPublicIpOnLaunch: true
+      Tags:
+        - Key: Name
+          Value: RDS Public Subnet AZA
+
+  ColkiePublicSubnetB:
+    DependsOn: ColkieRDSVPC
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: ColkieRDSVPC
+      AvailabilityZone: ${self:provider.region}b
+      CidrBlock: ${self:custom.postgres.vpcCIDR}.0.1.0/24
+      MapPublicIpOnLaunch: true
+      Tags:
+        - Key: Name
+          Value: RDS Public Subnet AZB
+
+  ColkiePublicSubnetC:
+    DependsOn: ColkieRDSVPC
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: ColkieRDSVPC
+      AvailabilityZone: ${self:provider.region}c
+      CidrBlock: ${self:custom.postgres.vpcCIDR}.0.2.0/24
+      MapPublicIpOnLaunch: true
+      Tags:
+        - Key: Name
+          Value: RDS Public Subnet AZC
+
+  ColkieRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId:
+        Ref: ColkieRDSVPC
+
+  ColkieRouteTable1Association:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId:
+        Ref: ColkiePublicSubnetA
+      RouteTableId:
+        Ref: ColkieRouteTable
+
+  ColkieRouteTable2Association:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId:
+        Ref: ColkiePublicSubnetB
+      RouteTableId:
+        Ref: ColkieRouteTable
+
+  ColkieRouteTable3Association:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId:
+        Ref: ColkiePublicSubnetC
+      RouteTableId:
+        Ref: ColkieRouteTable
+
+  ColkieInternetRouteRule:
+    Type: AWS::EC2::Route
+    DependsOn: ColkieAttachGateway
+    Properties:
+      RouteTableId:
+        Ref: ColkieRouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId:
+        Ref: ColkieInternetGateway
