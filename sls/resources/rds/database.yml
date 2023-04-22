@@ -36,7 +36,7 @@ Resources:
         - Ref: ColkieSecurityGroup
       Engine: postgres
       MultiAZ: false
-      EngineVersion: "10.15"
+      EngineVersion: "14.1"
       PubliclyAccessible: true
       AllocatedStorage: ${self:custom.postgres.allocatedStorage.${self:custom.stage}}
       StorageType: gp2
