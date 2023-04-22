@@ -13,7 +13,7 @@ Resources:
     Type: AWS::RDS::DBParameterGroup
     Properties:
       Description: "Parameter Group for RDS Instance"
-      Family: postgres10
+      Family: postgres14
       Parameters:
         max_connections: ${self:custom.postgres.maxConnections.${self:custom.stage}}
         rds.logical_replication: 0
