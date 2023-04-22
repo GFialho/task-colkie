@@ -66,6 +66,6 @@ resources:
   - ${file(sls/resources/rds/vpc.yml)}
   # SECRETS
   - ${file(sls/resources/secrets/database.yml)}
-  # S3
-  - ${file(sls/resources/s3/bucket.yml)}
-  - ${file(sls/resources/s3/bucketPolicy.yml)}
+  # # S3
+  # - ${file(sls/resources/s3/bucket.yml)}
+  # - ${file(sls/resources/s3/bucketPolicy.yml)}

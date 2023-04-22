@@ -12,19 +12,21 @@ export async function handler(
   try {
     const prismaClient = await generateClient();
 
-    const user = await getUser(request);
-    if (!user) return { statusCode: 401 };
+    const { username } = JSON.parse(request.body as string);
 
-    const { name } = JSON.parse(request.body as string);
+    const userAlreadyExists = prismaClient.user.findUnique({
+      where: { username },
+    });
 
-    const roomAlreadyExists = prismaClient.room.findUnique({ where: { name } });
+    if (!!userAlreadyExists)
+      return {
+        statusCode: 409,
+        message: "User with this username already exists",
+      };
 
-    if (!!roomAlreadyExists)
-      return { statusCode: 409, message: "Room with this name already exists" };
+    const createdUser = await prismaClient.user.create({ data: { username } });
 
-    await prismaClient.room.create({ data: { name } });
-
-    return { statusCode: 201 };
+    return { statusCode: 201, data: createdUser };
   } catch (error) {
     console.error(error);
     throw error;

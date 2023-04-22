@@ -23,6 +23,7 @@
     "typescript": "^5.0.4"
   },
   "dependencies": {
+    "@prisma/client": "^4.13.0",
     "aws-lambda": "^1.0.7"
   }
 }

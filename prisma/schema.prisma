@@ -7,3 +7,33 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+// Define the data models for rooms, users, and messages
+model Room {
+  id       String    @id @default(cuid())
+  name     String    @unique
+  users    User[]    @relation("usersInRoom")
+  messages Message[] @relation("messagesInRoom")
+
+  @@index([name])
+}
+
+model User {
+  id       String    @id @default(cuid())
+  token    String    @unique @default(uuid())
+  username String    @unique
+  rooms    Room[]    @relation("usersInRoom")
+  Message  Message[]
+
+  @@index([token])
+}
+
+model Message {
+  id        String   @id @default(cuid())
+  text      String
+  room      Room     @relation("messagesInRoom", fields: [roomId], references: [id])
+  roomId    String
+  sender    User     @relation(fields: [senderId], references: [id])
+  senderId  String
+  createdAt DateTime @default(now())
+}
