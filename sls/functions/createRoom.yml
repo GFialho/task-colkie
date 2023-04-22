@@ -6,14 +6,14 @@ CreateRoom:
         path: room
         method: post
         # Documentation that will go automatic to Swagger to interpret and create a docs website
-        documentation:
-          summary: "Create a Room endpoint. This endpoint is responsible to create a room"
+        # documentation:
+        #   summary: "Create a Room endpoint. This endpoint is responsible to create a room"
 
-          methodResponses:
-            - statusCode: 200
-              responseModels:
-                application/json: CreateRoomSuccessResponse
-            - statusCode: 500
-              responseModels:
-                application/json: ErrorResponse
-        reqValidatorName: RequestValidator
+        #   methodResponses:
+        #     - statusCode: 200
+        #       responseModels:
+        #         application/json: CreateRoomSuccessResponse
+        #     - statusCode: 500
+        #       responseModels:
+        #         application/json: ErrorResponse
+        # reqValidatorName: RequestValidator
