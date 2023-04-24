@@ -8,6 +8,8 @@ plugins:
   - serverless-openapi-documentation
   - serverless-offline
 
+##### Production ready code is commented #####
+
 package:
   individually: true
   exclude:
@@ -23,7 +25,7 @@ provider:
     stage: ${self:custom.stage}
     dbHost: "123"
     dbUserName: postgres
-    dbPassword: ${self:custom.postgres.password}
+    dbPassword: postgres # ${self:custom.postgres.password}
     dbMaxConnections: 100
     DATABASE_URL: postgres://${self:custom.postgres.username}:${self:custom.postgres.password}@${self:custom.rdsHost}/${self:custom.postgres.dbName}
 
@@ -39,7 +41,7 @@ custom:
   postgres:
     dbName: colkie
     username: production
-    password: ${ssm:${self:custom.rdsSecretName}}
+    # password: ${ssm:${self:custom.rdsSecretName}}
     maxConnections:
       production: 100
     dbInstanceClass:
@@ -47,8 +49,8 @@ custom:
     allocatedStorage:
       production: "20"
     vpcCIDR: 10
-  rdsSecretName: /rds/password
-  rdsHost: colkie.ctmmxcjr8kn2.eu-west-2.rds.amazonaws.com
+  #  rdsSecretName: /rds/password
+  rdsHost: localhost
   stage: ${opt:stage, 'production'}
   bucketName: ${self:service}-swagger-${self:custom.stage}
 
@@ -61,10 +63,11 @@ functions:
 
 resources:
   # RDS
-  - ${file(sls/resources/rds/database.yml)}
-  - ${file(sls/resources/rds/vpc.yml)}
-  # SECRETS
-  - ${file(sls/resources/secrets/database.yml)}
+  # If you want production ready code, uncomment these lines
+  # - ${file(sls/resources/rds/database.yml)}
+  # - ${file(sls/resources/rds/vpc.yml)}
+  # # SECRETS
+  # - ${file(sls/resources/secrets/database.yml)}
   # API GATEWAY
   - ${file(sls/resources/apigateway/reqValidator.yml)}
   - ${file(sls/resources/apigateway/responses.yml)}

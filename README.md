@@ -10,6 +10,8 @@ I also added automated tests to verify the correct behavior of the API and used 
 
 In this README, I will describe the decisions I made throughout the development process, as well as explain the structure of my solution. I will also provide instructions for running the application and running the tests.
 
+## I made a production ready code with RDS and CI/CD but I left commented since it has a cost per hour. To test this task you need to run the server locally using sls-offline
+
 ## AWS Serverless Lambda and RDS with Serverless Framework
 
 For this challenge, I decided to use AWS Serverless Lambda and RDS with Serverless Framework to build my solution. Here's an overview of how I used these technologies:
@@ -63,4 +65,11 @@ Overall, using OpenAPI documentation and Jest tests allowed me to build a well-d
 # How to Test?
 
 - You can test using the OpenAPI documentation that is on: https://app.swaggerhub.com/apis/GABRIELZZH_1/ColkieTask/1
-- First you have to create an user and add the token you received in the Authorization header
+
+## Steps:
+
+1.  You need to run `npm i`
+2.  Run postgres database locally using docker-compose
+3.  set DATABASE_URL in .env file and Run prisma migrations: `npx prisma migrate deploy`
+4.  Start server locally with `sls offline`
+5.  Start testing the endpoints (First you have to create an user and add the token you received in the Authorization header)
