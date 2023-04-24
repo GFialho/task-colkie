@@ -4,9 +4,9 @@ plugins:
   - serverless-iam-roles-per-function
   - serverless-esbuild
   - serverless-prune-plugin
-  - "@kakkuk/serverless-aws-apigateway-documentation"
-  - serverless-reqvalidator-plugin
-  - serverless-aws-documentation
+  # - "@kakkuk/serverless-aws-apigateway-documentation"
+  # - serverless-reqvalidator-plugin
+  # - serverless-aws-documentation
 
 package:
   individually: true
