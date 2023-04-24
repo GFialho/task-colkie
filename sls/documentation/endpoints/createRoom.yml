@@ -6,8 +6,8 @@ createRoom:
     - Room
   requestModels:
     application/json: "CreateRoomRequest"
-    requestBody:
-      description: "An object containing the name of the room"
+  requestBody:
+    description: "An object containing the name of the room"
   requestHeaders:
     - name: "Authorization"
       description: "Authorization header"

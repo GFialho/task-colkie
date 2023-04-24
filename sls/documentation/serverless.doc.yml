@@ -4,12 +4,6 @@ documentation:
   description: "Documentation for colkie-api"
   servers:
     - url: https://663lo1tpug.execute-api.eu-west-2.amazonaws.com/production
-  endpoints:
-    addUserToRoom: ${file(sls/documentation/endpoints/addUserToRoom.yml)}
-    createRoom: ${file(sls/documentation/endpoints/createRoom.yml)}
-    createUser: ${file(sls/documentation/endpoints/createUser.yml)}
-    getLatestMessages: ${file(sls/documentation/endpoints/getLatestMessages.yml)}
-    sendMessage: ${file(sls/documentation/endpoints/sendMessage.yml)}
 
   models:
     - ${file(sls/documentation/models/createRoom/request.yml)}

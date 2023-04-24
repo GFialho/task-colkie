@@ -3,11 +3,11 @@ createUser:
   summary: "Create an user"
   description: "Create an User endpoint. This endpoint is responsible to create an user and receive the associated token"
   tags:
-    - Room
+    - User
   requestModels:
     application/json: "CreateUserRequest"
-    requestBody:
-      description: "An object containing the username"
+  requestBody:
+    description: "An object containing the username"
   methodResponses:
     - statusCode: 201
       responseBody:

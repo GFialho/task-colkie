@@ -3,7 +3,7 @@ sendMessage:
   summary: "Send a message"
   description: "Send a message endpoint. This endpoint is responsible to send a message to a specific room"
   tags:
-    - Room
+    - Message
   pathParams:
     - name: "id"
       description: "The room id"
@@ -11,8 +11,8 @@ sendMessage:
         type: "string"
   requestModels:
     application/json: "SendMessageRequest"
-    requestBody:
-      description: "An object containing the text of the message"
+  requestBody:
+    description: "An object containing the text of the message"
   methodResponses:
     - statusCode: 201
       responseModels:

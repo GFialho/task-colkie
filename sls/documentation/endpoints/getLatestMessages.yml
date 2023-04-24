@@ -3,9 +3,9 @@ getLatestMessages:
   summary: "Get latest messages"
   description: "Get latest messages endpoint. This endpoint is responsible to get latest messages from a room"
   tags:
-    - Room
+    - Message
   pathParams:
-    - name: "id"
+    - name: id
       description: "The room id"
       schema:
         type: "string"

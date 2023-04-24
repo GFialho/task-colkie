@@ -73,9 +73,9 @@ components:
 info:
   title: colkie-api
   description: Documentation for colkie-api
-  version: '1'
+  version: "1"
 paths:
-  '/room/{id}/users':
+  "/room/{id}/users":
     post:
       operationId: AddUserToRoom
       summary: Add an user to a room
@@ -84,11 +84,18 @@ paths:
         to a specific room.
       tags:
         - User
+      parameters:
+        - name: id
+          in: path
+          description: The room id
+          required: true
+          schema:
+            type: string
       responses:
-        '200':
+        "200":
           description: An User was added to a room
           content: {}
-        '401':
+        "401":
           description: Unauthorized
           content: {}
   /room:
@@ -98,17 +105,23 @@ paths:
       description: Create a Room endpoint. This endpoint is responsible to create a room
       tags:
         - Room
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateRoomRequest"
+        description: An object containing the name of the room
       responses:
-        '201':
+        "201":
           description: An room was created
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CreateRoomResponse'
-        '401':
+                $ref: "#/components/schemas/CreateRoomResponse"
+        "401":
           description: Unauthorized
           content: {}
-  '/room/{id}/messages':
+  "/room/{id}/messages":
     get:
       operationId: GetLatestMessages
       summary: Get latest messages
@@ -116,14 +129,21 @@ paths:
         Get latest messages endpoint. This endpoint is responsible to get latest
         messages from a room
       tags:
-        - Room
+        - Message
+      parameters:
+        - name: id
+          in: path
+          description: The room id
+          required: true
+          schema:
+            type: string
       responses:
-        '200':
+        "200":
           description: Messages retrieved
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GetLatestMessagesResponse'
+                $ref: "#/components/schemas/GetLatestMessagesResponse"
     post:
       operationId: SendMessage
       summary: Send a message
@@ -131,12 +151,25 @@ paths:
         Send a message endpoint. This endpoint is responsible to send a message
         to a specific room
       tags:
-        - Room
+        - Message
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SendMessageRequest"
+        description: An object containing the text of the message
+      parameters:
+        - name: id
+          in: path
+          description: The room id
+          required: true
+          schema:
+            type: string
       responses:
-        '201':
+        "201":
           description: Status 201 Response
           content: {}
-        '401':
+        "401":
           description: Unauthorized
           content: {}
   /users:
@@ -147,14 +180,20 @@ paths:
         Create an User endpoint. This endpoint is responsible to create an user
         and receive the associated token
       tags:
-        - Room
+        - User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateUserRequest"
+        description: An object containing the username
       responses:
-        '201':
+        "201":
           description: An user was created
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CreateUserResponse'
-        '401':
+                $ref: "#/components/schemas/CreateUserResponse"
+        "401":
           description: Unauthorized
           content: {}
