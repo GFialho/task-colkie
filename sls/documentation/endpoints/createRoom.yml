@@ -1,22 +1,27 @@
-summary: "Create a room"
-description: "Create a Room endpoint. This endpoint is responsible to create a room"
-tags:
-  - Room
-requestModels:
-  application/json: "CreateRoomRequest"
-  requestBody:
-    description: "An object containing the name of the room"
-requestHeaders:
-  - name: "Authorization"
-    description: "Authorization header"
-    required: true
-    schema:
-      type: "string"
-methodResponses:
-  - statusCode: 201
-    responseBody:
-      description: "An room was created"
-    responseModels:
-      application/json: "CreateRoomResponse"
-  - statusCode: 500
-  - statusCode: 401
+createRoom:
+  operationId: createRoom
+  summary: "Create a room"
+  description: "Create a Room endpoint. This endpoint is responsible to create a room"
+  tags:
+    - Room
+  requestModels:
+    application/json: "CreateRoomRequest"
+    requestBody:
+      description: "An object containing the name of the room"
+  requestHeaders:
+    - name: "Authorization"
+      description: "Authorization header"
+      required: true
+      schema:
+        type: "string"
+  methodResponses:
+    - statusCode: 201
+      responseBody:
+        description: "An room was created"
+      responseModels:
+        application/json: "CreateRoomResponse"
+    - statusCode: 401
+      responseBody:
+        description: "Unauthorized"
+      responseModels:
+        application/json: null

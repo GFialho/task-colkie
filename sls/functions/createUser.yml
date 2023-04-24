@@ -6,3 +6,4 @@ CreateUser:
         path: users
         method: post
         reqValidatorName: RequestValidator
+        documentation: ${file(sls/documentation/endpoints/createUser.yml):createUser}

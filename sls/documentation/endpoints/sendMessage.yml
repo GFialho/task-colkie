@@ -1,17 +1,24 @@
-summary: "Send a message"
-description: "Send a message endpoint. This endpoint is responsible to send a message to a specific room"
-tags:
-  - Room
-pathParams:
-  - name: "id"
-    description: "The room id"
-    schema:
-      type: "string"
-requestModels:
-  application/json: "SendMessageRequest"
-  requestBody:
-    description: "An object containing the text of the message"
-methodResponses:
-  - statusCode: 201
-  - statusCode: 500
-  - statusCode: 401
+sendMessage:
+  operationId: sendMessage
+  summary: "Send a message"
+  description: "Send a message endpoint. This endpoint is responsible to send a message to a specific room"
+  tags:
+    - Room
+  pathParams:
+    - name: "id"
+      description: "The room id"
+      schema:
+        type: "string"
+  requestModels:
+    application/json: "SendMessageRequest"
+    requestBody:
+      description: "An object containing the text of the message"
+  methodResponses:
+    - statusCode: 201
+      responseModels:
+        application/json: null
+    - statusCode: 401
+      responseBody:
+        description: "Unauthorized"
+      responseModels:
+        application/json: null

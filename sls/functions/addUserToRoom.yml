@@ -6,4 +6,4 @@ AddUserToRoom:
         path: room/{id}/users
         method: post
         reqValidatorName: RequestValidator
-        documentation: ${file(sls/documentation/endpoints/addUserToRoom.yml)}
+        documentation: ${file(sls/documentation/endpoints/addUserToRoom.yml):addUserToRoom}

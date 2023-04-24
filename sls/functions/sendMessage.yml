@@ -5,15 +5,5 @@ SendMessage:
     - http:
         path: room/{id}/messages
         method: post
-        # Documentation that will go automatic to Swagger to interpret and create a docs website
-        # documentation:
-        #   summary: "Send Message endpoint. This endpoint is responsible to send a message to a room"
-
-        #   methodResponses:
-        #     - statusCode: 200
-        #       responseModels:
-        #         application/json: SendMessageSuccessResponse
-        #     - statusCode: 500
-        #       responseModels:
-        #         application/json: ErrorResponse
-        # reqValidatorName: RequestValidator
+        documentation: ${file(sls/documentation/endpoints/sendMessage.yml):sendMessage}
+        reqValidatorName: RequestValidator

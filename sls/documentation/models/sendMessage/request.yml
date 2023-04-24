@@ -1,4 +1,4 @@
-name: CreateRoomRequest
+name: SendMessageRequest
 description: "Create a room request model"
 contentType: application/json
 schema:

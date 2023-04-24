@@ -1,0 +1,160 @@
+openapi: 3.0.0
+components:
+  schemas:
+    CreateRoomRequest:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+    CreateRoomResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+            name:
+              type: object
+    CreateUserRequest:
+      type: object
+      required:
+        - username
+      properties:
+        username:
+          type: string
+    CreateUserResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+            token:
+              type: object
+            username:
+              type: string
+            createdAt:
+              type: string
+    GetLatestMessagesResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+            text:
+              type: object
+            roomId:
+              type: string
+            sender:
+              type: object
+              properties:
+                id:
+                  type: string
+                username:
+                  type: string
+                createdAt:
+                  type: string
+            createdAt:
+              type: string
+    SendMessageRequest:
+      type: object
+      required:
+        - text
+      properties:
+        text:
+          type: string
+  securitySchemes: {}
+info:
+  title: colkie-api
+  description: Documentation for colkie-api
+  version: '1'
+paths:
+  '/room/{id}/users':
+    post:
+      operationId: AddUserToRoom
+      summary: Add an user to a room
+      description: >-
+        Add User to a Room endpoint. This endpoint is responsible to add a user
+        to a specific room.
+      tags:
+        - User
+      responses:
+        '200':
+          description: An User was added to a room
+          content: {}
+        '401':
+          description: Unauthorized
+          content: {}
+  /room:
+    post:
+      operationId: CreateRoom
+      summary: Create a room
+      description: Create a Room endpoint. This endpoint is responsible to create a room
+      tags:
+        - Room
+      responses:
+        '201':
+          description: An room was created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateRoomResponse'
+        '401':
+          description: Unauthorized
+          content: {}
+  '/room/{id}/messages':
+    get:
+      operationId: GetLatestMessages
+      summary: Get latest messages
+      description: >-
+        Get latest messages endpoint. This endpoint is responsible to get latest
+        messages from a room
+      tags:
+        - Room
+      responses:
+        '200':
+          description: Messages retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetLatestMessagesResponse'
+    post:
+      operationId: SendMessage
+      summary: Send a message
+      description: >-
+        Send a message endpoint. This endpoint is responsible to send a message
+        to a specific room
+      tags:
+        - Room
+      responses:
+        '201':
+          description: Status 201 Response
+          content: {}
+        '401':
+          description: Unauthorized
+          content: {}
+  /users:
+    post:
+      operationId: CreateUser
+      summary: Create an user
+      description: >-
+        Create an User endpoint. This endpoint is responsible to create an user
+        and receive the associated token
+      tags:
+        - Room
+      responses:
+        '201':
+          description: An user was created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateUserResponse'
+        '401':
+          description: Unauthorized
+          content: {}

@@ -6,7 +6,7 @@ plugins:
   - serverless-prune-plugin
   - "@kakkuk/serverless-aws-apigateway-documentation"
   - serverless-reqvalidator-plugin
-  - serverless-aws-documentation
+  - serverless-openapi-documentation
   - serverless-offline
 
 package:

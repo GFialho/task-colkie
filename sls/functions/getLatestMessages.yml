@@ -5,20 +5,5 @@ GetLatestMessages:
     - http:
         path: room/{id}/messages
         method: get
-        # Documentation that will go automatic to Swagger to interpret and create a docs website
-        # documentation:
-        #   summary: "Get Latest Messages endpoint. This endpoint is responsible to return latest messages from a specific room."
-        #   pathParams:
-        #     - name: id
-        #       description: Id of the room
-        #       required: true
-        #       schema:
-        #         type: string
-        #   methodResponses:
-        #     - statusCode: 200
-        #       responseModels:
-        #         application/json: GetLatestMessagesSuccessResponse
-        #     - statusCode: 500
-        #       responseModels:
-        #         application/json: ErrorResponse
-        # reqValidatorName: RequestValidator
+        reqValidatorName: RequestValidator
+        documentation: ${file(sls/documentation/endpoints/getLatestMessages.yml):getLatestMessages}

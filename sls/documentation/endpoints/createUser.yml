@@ -1,16 +1,21 @@
-summary: "Create an user"
-description: "Create an User endpoint. This endpoint is responsible to create an user and receive the associated token"
-tags:
-  - Room
-requestModels:
-  application/json: "CreateUserRequest"
-  requestBody:
-    description: "An object containing the username"
-methodResponses:
-  - statusCode: 201
-    responseBody:
-      description: "An user was created"
-    responseModels:
-      application/json: "CreateUserResponse"
-  - statusCode: 500
-  - statusCode: 401
+createUser:
+  operationId: createUser
+  summary: "Create an user"
+  description: "Create an User endpoint. This endpoint is responsible to create an user and receive the associated token"
+  tags:
+    - Room
+  requestModels:
+    application/json: "CreateUserRequest"
+    requestBody:
+      description: "An object containing the username"
+  methodResponses:
+    - statusCode: 201
+      responseBody:
+        description: "An user was created"
+      responseModels:
+        application/json: "CreateUserResponse"
+    - statusCode: 401
+      responseBody:
+        description: "Unauthorized"
+      responseModels:
+        application/json: null

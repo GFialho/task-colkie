@@ -6,3 +6,4 @@ CreateRoom:
         path: room
         method: post
         reqValidatorName: RequestValidator
+        documentation: ${file(sls/documentation/endpoints/createRoom.yml):createRoom}
