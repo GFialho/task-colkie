@@ -1,0 +1,9 @@
+Resources:
+  # To validate all request before triggering lambda!
+  RequestValidator:
+    Type: AWS::ApiGateway::RequestValidator
+    Properties:
+      Name: ${self:service}-${self:custom.stage}
+      RestApiId: !Ref ApiGatewayRestApi
+      ValidateRequestBody: true
+      ValidateRequestParameters: true

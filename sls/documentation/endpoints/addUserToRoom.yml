@@ -1,0 +1,21 @@
+summary: "Add an user to a room"
+description: "Add User to a Room endpoint. This endpoint is responsible to add a user to a specific room."
+tags:
+  - User
+pathParams:
+  - name: "id"
+    description: "The room id"
+    schema:
+      type: "string"
+requestHeaders:
+  - name: "Authorization"
+    description: "Authorization header"
+    required: true
+    schema:
+      type: "string"
+methodResponses:
+  - statusCode: 200
+    responseBody:
+      description: "A file was revealed"
+  - statusCode: 500
+  - statusCode: 401

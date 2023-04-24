@@ -1,0 +1,17 @@
+name: CreateUserResponse
+description: "Create user response model"
+contentType: application/json
+schema:
+  type: "object"
+  properties:
+    data:
+      type: "object"
+      properties:
+        id:
+          type: string
+        token:
+          type: object
+        username:
+          type: string
+        createdAt:
+          type: string

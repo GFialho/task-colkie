@@ -17,14 +17,16 @@ export async function handler(
 
     const { name } = JSON.parse(request.body as string);
 
-    const roomAlreadyExists = prismaClient.room.findUnique({ where: { name } });
+    const roomAlreadyExists = await prismaClient.room.findUnique({
+      where: { name },
+    });
 
     if (!!roomAlreadyExists)
       return { statusCode: 409, message: "Room with this name already exists" };
 
-    await prismaClient.room.create({ data: { name } });
+    const room = await prismaClient.room.create({ data: { name } });
 
-    return { statusCode: 201 };
+    return { statusCode: 201, body: JSON.stringify({ data: room }) };
   } catch (error) {
     console.error(error);
     throw error;

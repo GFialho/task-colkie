@@ -1,0 +1,26 @@
+name: GetLatestMessagesResponse
+description: "Get latest messages response model"
+contentType: application/json
+schema:
+  type: "object"
+  properties:
+    data:
+      type: "object"
+      properties:
+        id:
+          type: string
+        text:
+          type: object
+        roomId:
+          type: string
+        sender:
+          type: object
+          properties:
+            id:
+              type: string
+            username:
+              type: string
+            createdAt:
+              type: string
+        createdAt:
+          type: string

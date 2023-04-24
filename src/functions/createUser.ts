@@ -14,9 +14,11 @@ export async function handler(
 
     const { username } = JSON.parse(request.body as string);
 
-    const userAlreadyExists = prismaClient.user.findUnique({
+    const userAlreadyExists = await prismaClient.user.findUnique({
       where: { username },
     });
+
+    console.log({ userAlreadyExists });
 
     if (!!userAlreadyExists)
       return {
@@ -26,7 +28,7 @@ export async function handler(
 
     const createdUser = await prismaClient.user.create({ data: { username } });
 
-    return { statusCode: 201, data: createdUser };
+    return { statusCode: 201, body: JSON.stringify({ data: createdUser }) };
   } catch (error) {
     console.error(error);
     throw error;

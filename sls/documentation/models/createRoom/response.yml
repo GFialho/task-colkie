@@ -1,0 +1,13 @@
+name: CreateRoomResponse
+description: "Create room response model"
+contentType: application/json
+schema:
+  type: "object"
+  properties:
+    data:
+      type: "object"
+      properties:
+        id:
+          type: string
+        name:
+          type: object

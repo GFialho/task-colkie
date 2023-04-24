@@ -4,9 +4,10 @@ plugins:
   - serverless-iam-roles-per-function
   - serverless-esbuild
   - serverless-prune-plugin
-  # - "@kakkuk/serverless-aws-apigateway-documentation"
-  # - serverless-reqvalidator-plugin
-  # - serverless-aws-documentation
+  - "@kakkuk/serverless-aws-apigateway-documentation"
+  - serverless-reqvalidator-plugin
+  - serverless-aws-documentation
+  - serverless-offline
 
 package:
   individually: true
@@ -25,8 +26,10 @@ provider:
     dbUserName: postgres
     dbPassword: ${self:custom.postgres.password}
     dbMaxConnections: 100
+    DATABASE_URL: postgres://${self:custom.postgres.username}:${self:custom.postgres.password}@${self:custom.rdsHost}/${self:custom.postgres.dbName}
 
 custom:
+  documentation: ${file(sls/documentation/serverless.doc.yml):documentation}
   esbuild:
     target: "node16"
     concurrency: 10
@@ -37,7 +40,7 @@ custom:
   postgres:
     dbName: colkie
     username: production
-    password: first-password-123 # ${ssm:${self:custom.rdsSecretName}}
+    password: ${ssm:${self:custom.rdsSecretName}}
     maxConnections:
       production: 100
     dbInstanceClass:
@@ -46,19 +49,16 @@ custom:
       production: "20"
     vpcCIDR: 10
   rdsSecretName: /rds/password
-  rdsHost: rds_host_123
+  rdsHost: colkie.ctmmxcjr8kn2.eu-west-2.rds.amazonaws.com
   stage: ${opt:stage, 'production'}
   bucketName: ${self:service}-swagger-${self:custom.stage}
-  documentation:
-    info:
-      title: ${self:service}
-    models:
 
 functions:
   - ${file(sls/functions/addUserToRoom.yml)}
   - ${file(sls/functions/createRoom.yml)}
   - ${file(sls/functions/getLatestMessages.yml)}
   - ${file(sls/functions/sendMessage.yml)}
+  - ${file(sls/functions/createUser.yml)}
 
 resources:
   # RDS
@@ -69,3 +69,6 @@ resources:
   # # S3
   # - ${file(sls/resources/s3/bucket.yml)}
   # - ${file(sls/resources/s3/bucketPolicy.yml)}
+  # API GATEWAY
+  - ${file(sls/resources/apigateway/reqValidator.yml)}
+  - ${file(sls/resources/apigateway/responses.yml)}

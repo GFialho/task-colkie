@@ -1,0 +1,16 @@
+summary: "Get latest messages"
+description: "Get latest messages endpoint. This endpoint is responsible to get latest messages from a room"
+tags:
+  - Room
+pathParams:
+  - name: "id"
+    description: "The room id"
+    schema:
+      type: "string"
+methodResponses:
+  - statusCode: 200
+    responseBody:
+      description: "Messages retrieved"
+    responseModels:
+      application/json: "GetLatestMessagesResponse"
+  - statusCode: 500

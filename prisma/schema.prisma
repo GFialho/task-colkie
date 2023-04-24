@@ -24,6 +24,7 @@ model User {
   username String    @unique
   rooms    Room[]    @relation("usersInRoom")
   Message  Message[]
+  createdAt DateTime @default(now())
 
   @@index([token])
 }

@@ -16,10 +16,10 @@ export async function handler(
       where: { roomId },
       take: 30,
       orderBy: { createdAt: "desc" },
-      include: { sender: true },
+      include: { sender: { select: { username: true, createdAt: true } } },
     });
 
-    return { statusCode: 200, data: latestMessages };
+    return { statusCode: 200, body: JSON.stringify({ data: latestMessages }) };
   } catch (error) {
     console.error(error);
     throw error;

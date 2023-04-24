@@ -1,0 +1,10 @@
+name: CreateRoomRequest
+description: "Create a room request model"
+contentType: application/json
+schema:
+  type: "object"
+  required:
+    - text
+  properties:
+    text:
+      type: "string"

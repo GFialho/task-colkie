@@ -5,14 +5,5 @@ AddUserToRoom:
     - http:
         path: room/{id}/users
         method: post
-        # Documentation that will go automatic to Swagger to interpret and create a docs website
-        # documentation:
-        #   summary: "Add User to a Room endpoint. This endpoint is responsible to add a user to a specific room."
-        #   methodResponses:
-        #     - statusCode: 200
-        #       responseModels:
-        #         application/json: AddUserToRoomSuccessResponse
-        #     - statusCode: 500
-        #       responseModels:
-        #         application/json: ErrorResponse
-        # reqValidatorName: RequestValidator
+        reqValidatorName: RequestValidator
+        documentation: ${file(sls/documentation/endpoints/addUserToRoom.yml)}

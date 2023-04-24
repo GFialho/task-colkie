@@ -1,0 +1,10 @@
+name: CreateUserRequest
+description: "Create an user request model"
+contentType: application/json
+schema:
+  type: "object"
+  required:
+    - username
+  properties:
+    username:
+      type: "string"
