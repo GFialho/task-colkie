@@ -48,7 +48,7 @@ In my solution, I used OpenAPI to document the structure of my API. I created a 
 
 Using OpenAPI documentation allowed me to provide a clear and consistent description of my API, making it easier for other developers to understand and use.
 
-The url is in: https://app.swaggerhub.com/apis/GABRIELZZH_1/ColkieTask/1.0.0#/
+The url is in:https://app.swaggerhub.com/apis/GABRIELZZH_1/ColkieTask/1
 
 ## Jest Tests
 
@@ -62,5 +62,5 @@ Overall, using OpenAPI documentation and Jest tests allowed me to build a well-d
 
 # How to Test?
 
-- You can test using the OpenAPI documentation that is on: https://app.swaggerhub.com/apis/GABRIELZZH_1/ColkieTask/1.0.0#/
+- You can test using the OpenAPI documentation that is on: https://app.swaggerhub.com/apis/GABRIELZZH_1/ColkieTask/1
 - First you have to create an user and add the token you received in the Authorization header
