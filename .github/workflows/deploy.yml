@@ -23,7 +23,7 @@ jobs:
           npx prisma generate
           npm run test
           sudo npm i -g serverless@3.6.0
-          sls deploy -s production --verbose
+          sls deploy -s production --verbose --force
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
